@@ -4,13 +4,16 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
+      - apt-cache depends zip
+      - apt-get update
+      - apt-get -y install zip
   build:
     commands:
       - echo Entered the build phase...
       - export REVISION_ID=`echo $REVISION | sed 's/\//-/g'`
       - pip install -U -t ./build -r requirements.txt 
       - ln -s -f -r -t ./build/ function.py
-      - cd ./build && /usr/bin/zip -r ../useraction-reciever-${REVISION_ID}.zip .
+      - cd ./build && zip -r ../useraction-reciever-${REVISION_ID}.zip .
 artifacts:
   files:
     - useraction-receiver-${REVISION_ID}.zip
